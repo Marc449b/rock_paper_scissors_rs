@@ -92,7 +92,6 @@ fn main() {
             },
             RockPaperScissors::Invalid => {
                 println!("Invalid input!");
-                continue;
             },
             _ => {
                 let computer_choice = computer_guess();
