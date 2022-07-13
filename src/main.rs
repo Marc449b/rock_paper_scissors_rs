@@ -60,7 +60,7 @@ fn get_input(prompt: &str) -> RockPaperScissors {
 fn computer_guess() -> RockPaperScissors {
     let mut rng = rand::thread_rng();
 
-    return match rng.gen_range(0..2) {
+    return match rng.gen_range(0..=2) {
         0 => RockPaperScissors::Rock,
         1 => RockPaperScissors::Paper,
         _ => RockPaperScissors::Scissors,
