@@ -78,9 +78,9 @@ fn main() {
         // Clear the screen
         print!("\x1B[2J\x1B[1;1H");
 
-        println!("Current score is: Player: {}\nComputer: {}\nDraws: {}\nGamecount: {}\n", player_score, game_count - player_score - draw_count, draw_count, game_count);
+        println!("Current score is:\nPlayer: {}\nComputer: {}\nDraws: {}\nGamecount: {}\n", player_score, game_count - player_score - draw_count, draw_count, game_count);
 
-        let player_choice = get_input("Rock, Paper or Scissors? quit for quit: ");
+        let player_choice = get_input("Rock, Paper or Scissors? q to quit: ");
 
         // Clear the screen
         print!("\x1B[2J\x1B[1;1H");
