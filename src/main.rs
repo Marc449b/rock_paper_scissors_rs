@@ -12,12 +12,9 @@ enum RockPaperScissors {
 impl RockPaperScissors {
     fn beats(&self, other: &RockPaperScissors) -> bool {
         return match (self, other) {
-            (RockPaperScissors::Rock, RockPaperScissors::Paper) |
-            (RockPaperScissors::Paper, RockPaperScissors::Rock) => true,
-            (RockPaperScissors::Rock, RockPaperScissors::Scissors) |
-            (RockPaperScissors::Scissors, RockPaperScissors::Rock) => false,
-            (RockPaperScissors::Paper, RockPaperScissors::Scissors) |
+            (RockPaperScissors::Rock, RockPaperScissors::Scissors) => true,
             (RockPaperScissors::Scissors, RockPaperScissors::Paper) => true,
+            (RockPaperScissors::Paper, RockPaperScissors::Rock) => true,
             _ => false,
         };
     }
