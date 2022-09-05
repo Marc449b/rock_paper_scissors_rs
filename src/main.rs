@@ -5,7 +5,6 @@ enum RockPaperScissors {
     Rock,
     Paper,
     Scissors,
-    Quit,
     Invalid,
 }
 
@@ -24,7 +23,6 @@ impl RockPaperScissors {
             RockPaperScissors::Rock => "Rock",
             RockPaperScissors::Paper => "Paper",
             RockPaperScissors::Scissors => "Scissors",
-            RockPaperScissors::Quit => "Quit",
             RockPaperScissors::Invalid => "Invalid",
         };
     }
@@ -49,7 +47,6 @@ fn get_input(prompt: &str) -> RockPaperScissors {
         "r" | "rock" => RockPaperScissors::Rock,
         "p" | "paper" => RockPaperScissors::Paper,
         "s" | "scissors" => RockPaperScissors::Scissors,
-        "q" | "quit" => RockPaperScissors::Quit,
         _ => RockPaperScissors::Invalid,
     };
 }
@@ -114,17 +111,12 @@ fn main() {
         println!("Current score is:\n{}", score.to_string());
 
         // Get player input
-        let player_choice = get_input("Rock, Paper or Scissors? q to quit: ");
+        let player_choice = get_input("Rock, Paper or Scissors? ");
 
         // Clear the screen
         print!("\x1B[2J\x1B[1;1H");
 
         match player_choice {
-            // Quit game
-            RockPaperScissors::Quit => {
-                println!("Thanks for playing!");
-                break;
-            },
             // Invalid input
             RockPaperScissors::Invalid => {
                 println!("Invalid input!");
