@@ -64,10 +64,45 @@ fn computer_guess() -> RockPaperScissors {
     };
 }
 
+struct Score {
+    player: u32,
+    computer: u32,
+    draws: u32
+}
+
+impl Score {
+    fn new() -> Score {
+        Score {
+            player: 0,
+            computer: 0,
+            draws: 0
+        }
+    }
+
+    fn get_gamecount(&self) -> u32 {
+        self.player + self.computer + self.draws
+    }
+
+    fn to_string(&self) -> String {
+        format!("Player: {}\nComputer: {}\nDraws: {}\nGamecount: {}", self.player, self.computer, self.draws, self.get_gamecount())
+    }
+
+    fn incr_player(&mut self) {
+        self.player += 1;
+    }
+
+    fn incr_comp(&mut self) {
+        self.computer += 1;
+    }
+    
+    fn incr_draw(&mut self) {
+        self.draws += 1;
+    }
+}
+
 fn main() {
-    let mut player_score = 0;
-    let mut draw_count = 0;
-    let mut game_count = 0;
+    // Initiate statuses
+    let mut score = Score::new();
 
     println!("Welcome to Rock Paper Scissors!");
 
@@ -75,40 +110,50 @@ fn main() {
         // Clear the screen
         print!("\x1B[2J\x1B[1;1H");
 
-        println!("Current score is:\nPlayer: {}\nComputer: {}\nDraws: {}\nGamecount: {}\n", player_score, game_count - player_score - draw_count, draw_count, game_count);
+        // Print game score and status
+        println!("Current score is:\n{}", score.to_string());
 
+        // Get player input
         let player_choice = get_input("Rock, Paper or Scissors? q to quit: ");
 
         // Clear the screen
         print!("\x1B[2J\x1B[1;1H");
 
         match player_choice {
+            // Quit game
             RockPaperScissors::Quit => {
                 println!("Thanks for playing!");
                 break;
             },
+            // Invalid input
             RockPaperScissors::Invalid => {
                 println!("Invalid input!");
             },
+            // Valid input
             _ => {
+                // Get computer guess
                 let computer_choice = computer_guess();
+                
+                // Print guesses
                 println!("You chose: {}", player_choice.to_string());
                 println!("Computer chose: {}", computer_choice.to_string());
 
                 // If player wins, increment player_score
                 if player_choice.beats(&computer_choice) {
                     println!("You win!");
-                    player_score += 1;
+                    score.incr_player();
                 } else if computer_choice.beats(&player_choice) {
                     println!("You lose!");
+                    score.incr_comp();
+                // If draw, increment draw_count
                 } else {
                     println!("Draw!");
-                    draw_count += 1;
+                    score.incr_draw();
                 }
-                game_count += 1;
             }
         }
 
+        // Prompt for next game
         if prompt_input("Wanna continue? (Y/n) ") == "n" {
             println!("Bye!");
             break;
