@@ -1,32 +1,11 @@
+mod rps;
+mod score;
+
+use rps::RockPaperScissors;
+use score::Score;
+
 use rand::prelude::*;
 use std::io::{self, Write};
-
-enum RockPaperScissors {
-    Rock,
-    Paper,
-    Scissors,
-    Invalid,
-}
-
-impl RockPaperScissors {
-    fn beats(&self, other: &RockPaperScissors) -> bool {
-        return match (self, other) {
-            (RockPaperScissors::Rock, RockPaperScissors::Scissors) => true,
-            (RockPaperScissors::Scissors, RockPaperScissors::Paper) => true,
-            (RockPaperScissors::Paper, RockPaperScissors::Rock) => true,
-            _ => false,
-        };
-    }
-
-    fn to_string(&self) -> &'static str {
-        return match self {
-            RockPaperScissors::Rock => "Rock",
-            RockPaperScissors::Paper => "Paper",
-            RockPaperScissors::Scissors => "Scissors",
-            RockPaperScissors::Invalid => "Invalid",
-        };
-    }
-}
 
 fn prompt_input(prompt: &str) -> String {
     // Start out by printing prompt
@@ -59,42 +38,6 @@ fn computer_guess() -> RockPaperScissors {
         1 => RockPaperScissors::Paper,
         _ => RockPaperScissors::Scissors,
     };
-}
-
-struct Score {
-    player: u32,
-    computer: u32,
-    draws: u32
-}
-
-impl Score {
-    fn new() -> Score {
-        Score {
-            player: 0,
-            computer: 0,
-            draws: 0
-        }
-    }
-
-    fn get_gamecount(&self) -> u32 {
-        self.player + self.computer + self.draws
-    }
-
-    fn to_string(&self) -> String {
-        format!("Player: {}\nComputer: {}\nDraws: {}\nGamecount: {}", self.player, self.computer, self.draws, self.get_gamecount())
-    }
-
-    fn incr_player(&mut self) {
-        self.player += 1;
-    }
-
-    fn incr_comp(&mut self) {
-        self.computer += 1;
-    }
-    
-    fn incr_draw(&mut self) {
-        self.draws += 1;
-    }
 }
 
 fn main() {
